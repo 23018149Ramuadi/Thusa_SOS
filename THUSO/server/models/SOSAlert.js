@@ -1,0 +1,3 @@
+const mongoose=require('mongoose');
+const schema=new mongoose.Schema({userId:{type:mongoose.Schema.Types.ObjectId,ref:'User',required:true,index:true},status:{type:String,enum:['active','resolved'],default:'active',index:true},latitude:{type:Number,required:true,min:-90,max:90},longitude:{type:Number,required:true,min:-180,max:180},accuracy:{type:Number,default:null,min:0},activatedAt:{type:Date,default:Date.now},deactivatedAt:{type:Date,default:null},notifications:[{contactId:mongoose.Schema.Types.ObjectId,name:String,channel:String,state:{type:String,default:'generated-not-delivered'},message:String}]},{timestamps:true});
+schema.index({userId:1,activatedAt:-1}); module.exports=mongoose.model('SOSAlert',schema);

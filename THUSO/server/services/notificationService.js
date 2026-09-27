@@ -1,0 +1,2 @@
+function buildMessage(user,alert){const maps=`https://www.google.com/maps?q=${alert.latitude},${alert.longitude}`;return `EMERGENCY SOS ALERT\n\n${user.fullName} has activated an emergency SOS alert.\n\nCurrent location:\n${maps}\n\nActivated: ${new Date(alert.activatedAt).toLocaleString('en-ZA')}\n\nPlease contact them or emergency services if necessary.`;}
+exports.generate=async(user,alert,contacts)=>contacts.map(c=>({contactId:c._id,name:c.name,channel:'not-configured',state:'generated-not-delivered',message:buildMessage(user,alert)}));

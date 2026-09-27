@@ -1,0 +1,2 @@
+const jwt=require('jsonwebtoken'); const User=require('../models/User');
+module.exports=async(req,res,next)=>{try{const h=req.headers.authorization||'';const token=h.startsWith('Bearer ')?h.slice(7):null;if(!token)return res.status(401).json({message:'Authentication required.'});const decoded=jwt.verify(token,process.env.JWT_SECRET);const user=await User.findById(decoded.sub);if(!user)return res.status(401).json({message:'Account not found.'});req.user=user;next();}catch(e){return res.status(401).json({message:'Invalid or expired session.'});}};
