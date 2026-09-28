@@ -1,1 +1,31 @@
-"use strict";const form=document.getElementById('loginForm'),msg=document.getElementById('message'),pass=document.getElementById('password');function show(t,k){msg.textContent=t;msg.className='message '+k;}document.getElementById('togglePassword').onclick=()=>pass.type=pass.type==='password'?'text':'password';document.getElementById('forgot').onclick=e=>{e.preventDefault();show('Password recovery email is not configured yet.','error');};form.onsubmit=async e=>{e.preventDefault();try{const data=await api('/api/auth/login',{method:'POST',body:JSON.stringify({email:document.getElementById('email').value.trim(),password:pass.value})});localStorage.setItem(TOKEN_KEY,data.token);show('Login successful. Opening dashboard…','success');setTimeout(()=>location.href='portal.html',500);}catch(err){show(err.message,'error');}};
+"use strict";
+const
+  form=document.getElementById('loginForm'),
+  msg=document.getElementById('message'),
+  pass=document.getElementById('password');
+function
+  show(t,k){
+    msg.textContent=t;
+    msg.className='message '+k;
+  }
+document.getElementById('togglePassword').onclick=()=>pass.type=pass.type==='password'?'text':'password';
+document.getElementById('forgot').onclick=e=>{
+  e.preventDefault();
+  show('Password recovery email is not configured yet.','error');
+};
+form.onsubmit=async e=>{
+  e.preventDefault();
+  try{
+    const
+      data=await api('/api/auth/login',
+                     {method:'POST',
+                      body:JSON.stringify({email:document.getElementById('email').value.trim(),
+                                           password:pass.value})});
+    localStorage.setItem(TOKEN_KEY,data.token);
+    show('Login successful. Opening dashboard…','success');
+    setTimeout(()=>location.href='portal.html',500);
+  }
+  catch(err){
+    show(err.message,'error');
+  }
+};
