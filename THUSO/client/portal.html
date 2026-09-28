@@ -1,1 +1,105 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SafeHer — Emergency Dashboard</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><link rel="stylesheet" href="style.css"></head><body><div id="toast" class="toast"></div><header class="topbar"><div class="brand"><span class="brand-mark">S</span><div><strong>SafeHer</strong><small>Emergency Safety</small></div></div><div class="top-actions"><a class="secondary" href="trusted-contacts.html">Trusted Contacts</a><a class="secondary" href="sos-history.html">SOS History</a><a class="secondary" href="profile.html">Profile</a><button class="secondary" onclick="logout()">Logout</button></div></header><main class="container"><section class="hero"><div><p class="eyebrow">WOMEN'S SAFETY PLATFORM</p><h1>Welcome, <span id="userName">User</span></h1><p class="sub">Your safety network is ready. SafeHer shares your GPS location during an active SOS.</p></div></section><section class="panel"><div class="panel-head"><div><p class="eyebrow">USER DASHBOARD</p><h2>Emergency control centre</h2></div><span id="gpsStatus" class="status-pill neutral">GPS not requested</span></div><div class="sos-card"><div class="pulse-ring"><button id="sosBtn" class="sos">SOS<br><small>EMERGENCY</small></button></div><h3 id="sosHeading">SOS INACTIVE</h3><p id="sosMessage">Press SOS if you are in immediate danger.</p><button id="deactivateBtn" class="danger-outline hidden">DEACTIVATE SOS</button></div><div class="grid-3"><div class="card"><span class="icon">⌖</span><b>Current location</b><p id="locationText">Not shared</p></div><div class="card"><span class="icon">♥</span><b>Trusted contacts</b><p id="contactSummary">Loading…</p><a href="trusted-contacts.html">Manage contacts</a></div><div class="card"><span class="icon">!</span><b>Emergency status</b><p id="userStatus">No active emergency</p></div></div><div id="activeBox" class="card hidden"><div class="active-head"><div><p class="eyebrow">CURRENT EMERGENCY LOCATION</p><h3 id="emergencyId">—</h3></div><span class="status-pill active">SOS ACTIVE</span></div><div id="mapUser" class="map"></div><div class="detail-grid"><div><small>Activated</small><strong id="emergencyTime">—</strong></div><div><small>GPS accuracy</small><strong id="accuracy">—</strong></div><div><small>Latitude</small><strong id="latitude">—</strong></div><div><small>Longitude</small><strong id="longitude">—</strong></div></div><a id="mapsLink" class="secondary" target="_blank" rel="noopener">Open Location in Maps</a><div id="notificationState" class="notice"></div></div><div class="card"><h3>Emergency services</h3><p>SafeHer does not automatically contact police. In South Africa, use the appropriate emergency number when necessary.</p><div class="button-row"><a class="primary" href="tel:112">Call 112 (mobile emergency)</a><a class="secondary" href="tel:10111">Call 10111 (SAPS)</a></div></div></section></main><footer>SafeHer — Never expose live emergency locations publicly.</footer><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="api.js"></script><script src="dashboard.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>SafeHer — Emergency Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="toast" class="toast">
+      
+    </div>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">T.</span><div><strong>Thuso.</strong><small>Emergency Safety</small>
+        </div>
+      </div>
+      <div class="top-actions">
+        <a class="secondary" href="trusted-contacts.html">Trusted Contacts</a>
+        <a class="secondary" href="sos-history.html">Emergency History</a>
+        <a class="secondary" href="profile.html">Profile</a>
+        <button class="secondary" onclick="logout()">Logout</button>
+      </div>
+    </header>
+    <main class="container">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">SAFETY PLATFORM</p><h1>Welcome, <span id="userName">User</span></h1>
+          <p class="sub">Your safety network is ready. SafeHer shares your GPS location during an active SOS.</p>
+        </div>
+      </section>
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">USER DASHBOARD</p>
+            <h2>Emergency control centre</h2>
+        </div>
+          <span id="gpsStatus" class="status-pill neutral">GPS not requested</span>
+        </div>
+        <div class="sos-card">
+          <div class="pulse-ring">
+            <button id="sosBtn" class="sos">SOS<br><small>EMERGENCY</small></button>
+          </div>
+          <h3 id="sosHeading">SOS INACTIVE</h3>
+          <p id="sosMessage">Press SOS if you are in immediate danger.</p>
+          <button id="deactivateBtn" class="danger-outline hidden">DEACTIVATE SOS</button>
+        </div>
+        <div class="grid-3">
+          <div class="card"><b>Current location</b>
+            <p id="locationText">Not shared</p>
+          </div>
+          <div class="card"><b>Trusted contacts</b>
+            <p id="contactSummary">Loading…</p>
+            <a href="trusted-contacts.html">Manage contacts</a>
+          </div>
+          <div class="card">
+            <b>Emergency status</b>
+            <p id="userStatus">No active emergency</p>
+          </div>
+        </div>
+        <div id="activeBox" class="card hidden">
+          <div class="active-head">
+            <div>
+              <p class="eyebrow">CURRENT EMERGENCY LOCATION</p>
+              <h3 id="emergencyId">—</h3></div><span class="status-pill active">SOS ACTIVE</span>
+          </div>
+          <div id="mapUser" class="map">
+            
+          </div>
+          <div class="detail-grid">
+            <div>
+              <small>Activated</small>
+              <strong id="emergencyTime">—</strong>
+            </div>
+            <div>
+              <small>GPS accuracy</small>
+              <strong id="accuracy">—</strong>
+            </div>
+            <div>
+              <small>Latitude</small>
+              <strong id="latitude">—</strong>
+            </div>
+            <div>
+              <small>Longitude</small><strong id="longitude">—</strong>
+            </div>
+          </div>
+          <a id="mapsLink" class="secondary" target="_blank" rel="noopener">Open Location in Maps</a>
+          <div id="notificationState" class="notice">
+            
+          </div>
+        </div>
+        <div class="card">
+          <h3>Emergency services</h3><p>SafeHer does not automatically contact police, use the appropriate emergency number when necessary.</p>
+          <div class="button-row">
+            <a class="secondary" href="tel:10111">Call 10111 (SAPS)</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>SafeHer — Never expose live emergency locations publicly.</footer>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="api.js"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>
